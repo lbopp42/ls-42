@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   filters.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 15:08:14 by oyagci           ###   ########.fr       */
+/*   Created: 2016/12/01 14:36:35 by oyagci            #+#    #+#             */
+/*   Updated: 2016/12/01 14:48:29 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#ifndef FILTERS_H
+# define FILTERS_H
 
-int			main(int argc, char *argv[])
-{
-	ft_ls(".", FT_NAME);
-	return (0);
-}
+# include "ft_ls.h"
+
+int	filter_name(t_node *tree, const void *content, size_t content_size);
+int	filter_name_rev(t_node *tree, const void *content, size_t content_size);
+int	filter_time(t_node *tree, const void *content, size_t content_size);
+int	filter_time_rev(t_node *tree, const void *content, size_t content_size);
+
+#endif

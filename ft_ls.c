@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 15:19:51 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:54:55 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/01 15:07:54 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,30 @@ int			ft_node_add(t_node *tree, void *content, size_t content_size,
 	return (1);
 }
 
-void		ft_treeprint(t_node *tree)
+char		*basename(char *s)
+{
+	char *basename;
+
+	basename = ft_strchr(s, '/');
+	if (basename != NULL)
+		return (basename + 1);
+	else
+		return (s);
+}
+
+void		ft_treeprint(t_node *tree, int options)
 {
 	if (tree->left)
-		ft_treeprint(tree->left);
-	ft_putendl(tree->content);
+		ft_treeprint(tree->left, options);
+	if (*basename(tree->content) == '.')
+	{
+		if (options & FT_ALL)
+			ft_putendl(tree->content);
+	}
+	else
+		ft_putendl(tree->content);
 	if (tree->right)
-		ft_treeprint(tree->right);
+		ft_treeprint(tree->right, options);
 }
 
 void		ft_ls_start(char *path,
@@ -106,6 +123,6 @@ void		ft_ls_start(char *path,
 		else
 			ft_node_add(tree, nn, ft_strlen(nn) + 1, f);
 	}
-	ft_treeprint(tree);
+	ft_treeprint(tree, options);
 	closedir(dir_p);
 }

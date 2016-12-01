@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:50:31 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 14:02:57 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/01 14:48:46 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,10 @@ struct	s_node
 	t_node		*right;
 };
 
-typedef	struct s_file	t_file;
-struct	s_file
-{
-	char			*name;
-
-};
+# include "filters.h"
 
 void			ft_ls(char *path, int options);
-void			ft_ls_start(char *path, int (*f)(t_node *, const void *, size_t),
-		int options);
-int				filter_name(t_node *tree, const void *content, size_t content_size);
-int				filter_name_rev(t_node *tree, const void *content, size_t content_size);
-int				filter_time(t_node *tree, const void *content, size_t content_size);
-int				filter_time_rev(t_node *tree, const void *content, size_t content_size);
+void			ft_ls_start(char *path,
+					int (*f)(t_node *, const void *, size_t), int options);
 
 #endif
