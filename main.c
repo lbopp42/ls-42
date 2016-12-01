@@ -6,12 +6,14 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/11/30 15:23:57 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/01 13:08:02 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_ls.h"
+
 int			main(int argc, char *argv[])
 {
-	ft_ls(path, options);
+	ft_ls(".", FT_ALL | FT_NAME);
 	return (0);
 }
