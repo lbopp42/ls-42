@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 15:19:51 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:43:34 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/01 13:54:55 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 void			ft_ls(char *path, int options)
 {
-	int			active_opts;
 	int			(*filter_func[])(t_node *, const void *, size_t) = {
 		&filter_name_rev,
 		&filter_time,
@@ -94,14 +93,19 @@ void		ft_ls_start(char *path,
 	struct dirent	*buf;
 	t_node			*tree;
 
+	char *nn;
+
 	dir_p = opendir(path);
 	tree = NULL;
 	while ((buf = readdir(dir_p)) != NULL)
 	{
+		nn = ft_strjoin(path, "/");
+		nn = ft_strjoin(nn, buf->d_name);
 		if (tree == NULL)
-			tree = ft_node_new(path, ft_strlen(path) + 1);
+			tree = ft_node_new(nn, ft_strlen(nn) + 1);
 		else
-			ft_node_add(tree, path, ft_strlen(path) + 1, f);
+			ft_node_add(tree, nn, ft_strlen(nn) + 1, f);
 	}
 	ft_treeprint(tree);
+	closedir(dir_p);
 }

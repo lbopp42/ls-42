@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strupper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:53:22 by oyagci           ###   ########.fr       */
+/*   Created: 2016/11/12 13:12:57 by oyagci            #+#    #+#             */
+/*   Updated: 2016/11/12 13:20:11 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <libft.h>
 
-int			main(int argc, char *argv[])
+char	*ft_strupper(char *str)
 {
-	ft_ls(".", FT_ALL | FT_NAME);
-	return (0);
+	char *s;
+
+	s = str;
+	while (*s)
+	{
+		*s = ft_toupper(*s);
+		s++;
+	}
+	return (str);
 }

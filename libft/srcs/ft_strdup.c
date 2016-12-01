@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:53:22 by oyagci           ###   ########.fr       */
+/*   Created: 2016/11/04 16:14:19 by oyagci            #+#    #+#             */
+/*   Updated: 2016/11/05 11:27:27 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <string.h>
+#include <stdlib.h>
+#include <libft.h>
 
-int			main(int argc, char *argv[])
+char	*ft_strdup(const char *s1)
 {
-	ft_ls(".", FT_ALL | FT_NAME);
-	return (0);
+	char	*s;
+	size_t	len;
+
+	len = ft_strlen(s1) + 1;
+	if (!(s = (char *)malloc(sizeof(char) * len)))
+		return (NULL);
+	ft_strcpy(s, s1);
+	return (s);
 }

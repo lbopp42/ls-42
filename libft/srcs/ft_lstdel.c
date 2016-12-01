@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:53:22 by oyagci           ###   ########.fr       */
+/*   Created: 2016/11/08 16:08:56 by oyagci            #+#    #+#             */
+/*   Updated: 2016/11/08 16:21:22 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <libft.h>
+#include <stdlib.h>
 
-int			main(int argc, char *argv[])
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	ft_ls(".", FT_ALL | FT_NAME);
-	return (0);
+	t_list	*next;
+
+	while (*alst)
+	{
+		next = (*alst)->next;
+		del((*alst)->content, (*alst)->content_size);
+		free(*alst);
+		*alst = next;
+	}
+	*alst = NULL;
 }

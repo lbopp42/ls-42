@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:53:22 by oyagci           ###   ########.fr       */
+/*   Created: 2016/11/04 14:18:48 by oyagci            #+#    #+#             */
+/*   Updated: 2016/11/05 09:10:17 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <string.h>
 
-int			main(int argc, char *argv[])
+void	*ft_memset(void *b, int c, size_t len)
 {
-	ft_ls(".", FT_ALL | FT_NAME);
-	return (0);
+	unsigned char	u_c;
+	unsigned char	*u_b;
+
+	u_c = (unsigned char)c;
+	u_b = (unsigned char *)b;
+	while (len--)
+		*u_b++ = u_c;
+	return (b);
 }

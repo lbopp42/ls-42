@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 09:25:49 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:29:09 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/01 13:52:42 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	filter_name(t_node *tree, const void *content, size_t content_size)
 
 	basename = ft_strrchr((char *)tree->content, '/');
 	if (basename != NULL)
-		return (ft_strcmp(basename + 1, content));
+		return (-ft_strcmp(basename + 1, content));
 	else
-		return (ft_strcmp(tree->content, content));
+		return (-ft_strcmp(tree->content, content));
 }
 
 int	filter_name_rev(t_node *tree, const void *content, size_t content_size)
@@ -31,9 +31,9 @@ int	filter_name_rev(t_node *tree, const void *content, size_t content_size)
 
 	basename = ft_strrchr((char *)tree->content, '/');
 	if (basename != NULL)
-		return (-ft_strcmp(basename + 1, content));
+		return (ft_strcmp(basename + 1, content));
 	else
-		return (-ft_strcmp(tree->content, content));
+		return (ft_strcmp(tree->content, content));
 }
 
 int	filter_time(t_node *tree, const void *content, size_t content_size)

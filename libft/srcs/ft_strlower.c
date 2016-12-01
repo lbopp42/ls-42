@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlower.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:53:22 by oyagci           ###   ########.fr       */
+/*   Created: 2016/11/12 13:22:40 by oyagci            #+#    #+#             */
+/*   Updated: 2016/11/12 13:23:20 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <libft.h>
 
-int			main(int argc, char *argv[])
+char	*ft_strlower(char *str)
 {
-	ft_ls(".", FT_ALL | FT_NAME);
-	return (0);
+	char *s;
+
+	s = str;
+	while (*s)
+	{
+		*s = ft_tolower(*s);
+		s++;
+	}
+	return (str);
 }

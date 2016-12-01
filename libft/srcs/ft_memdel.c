@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:53:22 by oyagci           ###   ########.fr       */
+/*   Created: 2016/11/03 13:23:38 by oyagci            #+#    #+#             */
+/*   Updated: 2016/11/05 15:04:15 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <stdlib.h>
 
-int			main(int argc, char *argv[])
+void	ft_memdel(void **ap)
 {
-	ft_ls(".", FT_ALL | FT_NAME);
-	return (0);
+	if (ap == NULL)
+		return ;
+	free(*ap);
+	*ap = NULL;
 }

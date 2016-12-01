@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:53:22 by oyagci           ###   ########.fr       */
+/*   Created: 2016/11/08 16:21:46 by oyagci            #+#    #+#             */
+/*   Updated: 2016/11/08 16:52:20 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <libft.h>
 
-int			main(int argc, char *argv[])
+void	ft_lstadd(t_list **alst, t_list *new)
 {
-	ft_ls(".", FT_ALL | FT_NAME);
-	return (0);
+	t_list *save;
+
+	save = *alst;
+	*alst = new;
+	new->next = save;
 }

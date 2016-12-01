@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:53:22 by oyagci           ###   ########.fr       */
+/*   Created: 2016/11/03 16:34:38 by oyagci            #+#    #+#             */
+/*   Updated: 2016/11/04 16:19:34 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <string.h>
 
-int			main(int argc, char *argv[])
+char	*ft_strcpy(char *dst, const char *src)
 {
-	ft_ls(".", FT_ALL | FT_NAME);
-	return (0);
+	size_t i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i += 1;
+	}
+	dst[i] = '\0';
+	return (dst);
 }

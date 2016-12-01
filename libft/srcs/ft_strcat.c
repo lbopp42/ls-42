@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:53:22 by oyagci           ###   ########.fr       */
+/*   Created: 2016/11/03 16:39:39 by oyagci            #+#    #+#             */
+/*   Updated: 2016/11/05 11:37:46 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <string.h>
 
-int			main(int argc, char *argv[])
+char	*ft_strcat(char *dst, const char *src)
 {
-	ft_ls(".", FT_ALL | FT_NAME);
-	return (0);
+	char	*d;
+	char	*s;
+
+	d = dst;
+	s = (char *)src;
+	while (*d)
+		d += 1;
+	while (*s)
+		*d++ = *s++;
+	*d = '\0';
+	return (dst);
 }

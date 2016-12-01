@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:53:22 by oyagci           ###   ########.fr       */
+/*   Created: 2016/11/04 12:40:56 by oyagci            #+#    #+#             */
+/*   Updated: 2016/11/05 15:57:15 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <unistd.h>
 
-int			main(int argc, char *argv[])
+void	ft_putstr_fd(char *s, int fd)
 {
-	ft_ls(".", FT_ALL | FT_NAME);
-	return (0);
+	if (s)
+		while (*s != '\0')
+		{
+			write(fd, s, 1);
+			s += 1;
+		}
 }

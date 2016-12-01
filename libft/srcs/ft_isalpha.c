@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:53:22 by oyagci           ###   ########.fr       */
+/*   Created: 2016/11/05 14:20:04 by oyagci            #+#    #+#             */
+/*   Updated: 2016/11/05 14:36:57 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <libft.h>
 
-int			main(int argc, char *argv[])
+int	ft_isalpha(int c)
 {
-	ft_ls(".", FT_ALL | FT_NAME);
-	return (0);
+	if (ft_isupper(c) || ft_islower(c))
+		return (1);
+	else
+		return (0);
 }

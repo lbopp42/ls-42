@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 13:53:22 by oyagci           ###   ########.fr       */
+/*   Created: 2016/11/03 16:08:04 by oyagci            #+#    #+#             */
+/*   Updated: 2016/11/05 15:31:28 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <libft.h>
+#include <stdlib.h>
 
-int			main(int argc, char *argv[])
+char	*ft_strsub(const char *s, unsigned int start, size_t len)
 {
-	ft_ls(".", FT_ALL | FT_NAME);
-	return (0);
+	char *substring;
+
+	if (!s)
+		return (NULL);
+	if (!(substring = ft_strnew(len)))
+		return (NULL);
+	ft_strncpy(substring, &s[start], len + 1);
+	substring[len] = 0;
+	return (substring);
 }
