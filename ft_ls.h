@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:50:31 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 10:07:37 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/01 11:32:41 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ typedef	struct s_file	t_file;
 struct	s_file
 {
 	char			*name;
-	struct stat		st;
-	struct passwd	pw;
-	struct group	grp;
+	struct stat		*st;
+	struct passwd	*pw;
+	struct group	*grp;
 };
 
 #endif
