@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:50:31 by oyagci            #+#    #+#             */
-/*   Updated: 2016/11/30 16:19:33 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/01 10:07:37 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,21 @@
 # include <pwd.h>
 # include <grp.h>
 
-# define FT_REVERSE 0b0001
-# define FT_ALL		0b0010
+# define NB_FILTERS		4
+# define FT_REVERSE 	0b000001
+# define FT_TIME		0b000100
+# define FT_TIME_REV	0b010000
+# define FT_NAME		0b100000
+# define FT_LONG		0b001000
+# define FT_ALL			0b000010
 
-typedef	struct s_btree	t_btree;
-struct	s_btree
+typedef	struct s_node	t_node;
+struct	s_node
 {
 	void		*content;
-	t_btree		*left;
-	t_btree		*right;
+	size_t		content_size;
+	t_node		*left;
+	t_node		*right;
 };
 
 typedef	struct s_file	t_file;
