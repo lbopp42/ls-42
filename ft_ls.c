@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 15:19:51 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/02 13:04:27 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/02 14:43:45 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "libft.h"
 #include "ft_ls.h"
 #include <time.h>
+#include <sys/types.h>
 
 void		ft_ls(char *path, int options)
 {
@@ -159,6 +160,18 @@ char		*get_file_size(off_t size)
 	return (ft_itoa(size));
 }
 
+#include <stdio.h>
+
+char		*get_maj(dev_t dev)
+{
+	return (ft_itoa(major(dev)));
+}
+
+char		*get_min(dev_t dev)
+{
+	return (ft_itoa(minor(dev)));
+}
+
 char		*long_ls(t_node *tree)
 {
 	char	*long_format;
@@ -173,8 +186,18 @@ char		*long_ls(t_node *tree)
 	long_format = ft_stradd(long_format, " ");
 	long_format = ft_stradd(long_format, get_group(file.st.st_gid));
 	long_format = ft_stradd(long_format, " ");
-	long_format = ft_stradd(long_format, get_file_size(file.st.st_size));
-	long_format = ft_stradd(long_format, " ");
+	if (S_ISCHR(file.st.st_mode) || S_ISBLK(file.st.st_mode))
+	{
+		long_format = ft_stradd(long_format, get_maj(file.st.st_rdev));
+		long_format = ft_stradd(long_format, ", ");
+		long_format = ft_stradd(long_format, get_min(file.st.st_rdev));
+		long_format = ft_stradd(long_format, " ");
+	}
+	else
+	{
+		long_format = ft_stradd(long_format, get_file_size(file.st.st_size));
+		long_format = ft_stradd(long_format, " ");
+	}
 	long_format = ft_stradd(long_format, get_time(file.st.st_mtimespec.tv_sec));
 	long_format = ft_stradd(long_format, " ");
 	return (long_format);

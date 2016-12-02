@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 14:50:31 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/02 10:58:19 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/02 14:43:48 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 
 typedef	struct s_node	t_node;
 typedef	struct s_file	t_file;
+typedef	struct s_data	t_data;
+
+struct	s_
+
 struct	s_node
 {
 	void		*content;

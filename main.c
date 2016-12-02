@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/02 11:16:57 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/02 14:43:47 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ int			main(int argc, char *argv[])
 {
 	(void)argc;
 	(void)argv;
-	ft_ls(argv[1], FT_ALL);
+	ft_ls(argv[1], FT_ALL | FT_NAME);
 	return (0);
 }
