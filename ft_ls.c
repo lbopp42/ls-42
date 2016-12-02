@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 15:19:51 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/02 11:54:43 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/02 12:59:57 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include "libft.h"
 #include "ft_ls.h"
+#include <time.h>
 
 void		ft_ls(char *path, int options)
 {
@@ -91,8 +92,7 @@ char		*basename(char *s)
 		return (s);
 }
 
-char	get_file_type(mode_t st_mode)
-{
+char	get_file_type(mode_t st_mode){
 	if (S_ISDIR(st_mode))
 		return ('d');
 	else if (S_ISFIFO(st_mode))
@@ -104,7 +104,7 @@ char	get_file_type(mode_t st_mode)
 	return ('-');
 }
 
-char	*user_access(mode_t st_mode)
+char	*acl(mode_t st_mode)
 {
 	char	*s;
 
@@ -123,14 +123,54 @@ char	*user_access(mode_t st_mode)
 	return (s);
 }
 
+char	*nb_link(nlink_t st_nlink)
+{
+	return (ft_itoa(st_nlink));
+}
+
+char		*get_owner(uid_t st_uid)
+{
+	struct passwd	*pwd;
+
+	pwd = getpwuid(st_uid);
+	return (ft_strdup(pwd->pw_name));
+}
+
+char		*get_group(gid_t st_gid)
+{
+	struct group	*grp;
+
+	grp = getgrgid(st_gid);
+	return (ft_strdup(grp->gr_name));
+}
+
+char		*get_time(time_t time)
+{
+	char	*date;
+
+	date = ctime(&time);
+	ft_memmove(date, date + 4, ft_strlen(date + 4));
+	*ft_strrchr(date, ':') = 0;
+	return (date);
+}
+
 char		*long_ls(t_node *tree)
 {
-	//char	*long_format;
+	char	*long_format;
 	t_file	file;
 
 	file.name = ft_strdup(tree->content);
 	lstat(tree->content, &file.st);
-	return (user_access(file.st.st_mode));
+	long_format = acl(file.st.st_mode);
+	long_format = ft_stradd(long_format, nb_link(file.st.st_nlink));
+	long_format = ft_stradd(long_format, " ");
+	long_format = ft_stradd(long_format, get_owner(file.st.st_uid));
+	long_format = ft_stradd(long_format, " ");
+	long_format = ft_stradd(long_format, get_group(file.st.st_gid));
+	long_format = ft_stradd(long_format, " ");
+	long_format = ft_stradd(long_format, get_time(file.st.st_mtimespec.tv_sec));
+	long_format = ft_stradd(long_format, " ");
+	return (long_format);
 }
 
 void		ft_treeprint(t_node *tree, int options)
