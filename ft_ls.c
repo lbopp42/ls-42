@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 15:19:51 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/02 12:59:57 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/02 13:04:27 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,11 @@ char		*get_time(time_t time)
 	return (date);
 }
 
+char		*get_file_size(off_t size)
+{
+	return (ft_itoa(size));
+}
+
 char		*long_ls(t_node *tree)
 {
 	char	*long_format;
@@ -167,6 +172,8 @@ char		*long_ls(t_node *tree)
 	long_format = ft_stradd(long_format, get_owner(file.st.st_uid));
 	long_format = ft_stradd(long_format, " ");
 	long_format = ft_stradd(long_format, get_group(file.st.st_gid));
+	long_format = ft_stradd(long_format, " ");
+	long_format = ft_stradd(long_format, get_file_size(file.st.st_size));
 	long_format = ft_stradd(long_format, " ");
 	long_format = ft_stradd(long_format, get_time(file.st.st_mtimespec.tv_sec));
 	long_format = ft_stradd(long_format, " ");
