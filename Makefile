@@ -6,7 +6,7 @@
 #    By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/01 16:23:11 by oyagci            #+#    #+#              #
-#    Updated: 2016/12/01 16:31:22 by oyagci           ###   ########.fr        #
+#    Updated: 2016/12/02 11:51:52 by oyagci           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ INCLUDES		= -I libft/includes/
 .PHONY: all clean fclean re
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
+$(NAME): $(OBJECTS) libft
 	@$(CC) -o $(NAME) $(SOURCES) $(CFLAGS) $(INCLUDES) $(LIBS_FOLDER) $(LIBS)
 
 %.o: %.c
@@ -41,3 +41,6 @@ fclean: clean
 	@$(RM) $(NAME)
 
 re: fclean all
+
+libft:
+	@make fclean -C libft/ && make -C libft/

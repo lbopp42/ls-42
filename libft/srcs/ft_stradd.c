@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_stradd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/30 13:43:26 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/02 11:16:57 by oyagci           ###   ########.fr       */
+/*   Created: 2016/12/02 09:34:15 by oyagci            #+#    #+#             */
+/*   Updated: 2016/12/02 09:38:26 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <stdlib.h>
+#include "libft.h"
 
-int			main(int argc, char *argv[])
+char			*ft_stradd(char *s1, char *s2)
 {
-	(void)argc;
-	(void)argv;
-	ft_ls(argv[1], FT_ALL);
-	return (0);
+	char *new;
+
+	if (!(new = ft_strjoin(s1, s2)))
+		return (NULL);
+	free(s1);
+	return (new);
 }

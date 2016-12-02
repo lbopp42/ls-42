@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 15:19:51 by oyagci            #+#    #+#             */
-/*   Updated: 2016/12/01 15:07:54 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/02 11:54:43 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,30 @@
 #include "libft.h"
 #include "ft_ls.h"
 
-void			ft_ls(char *path, int options)
+void		ft_ls(char *path, int options)
 {
-	int			(*filter_func[])(t_node *, const void *, size_t) = {
+	static int	(*filter_func[5])(t_node *, const void *, size_t) = {
 		&filter_name_rev,
 		&filter_time,
 		&filter_time_rev,
 		&filter_name,
+		&filter_name,
 	};
-	const int	filters[] = { FT_REVERSE, FT_TIME, FT_TIME_REV, FT_NAME };
+	const int	filters[] = { FT_REVERSE, FT_TIME, FT_TIME_REV, FT_NAME,
+		FT_NOOPT };
 	int			i;
 
 	i = 0;
-	while (i < NB_FILTERS)
+	while (filters[i] != FT_NOOPT)
 	{
 		if (options & filters[i])
 			ft_ls_start(path, filter_func[i], options);
 		i++;
 	}
+	ft_ls_start(path, filter_func[i], options);
 }
 
-t_node	*ft_node_new(void *content, size_t content_size)
+t_node		*ft_node_new(void *content, size_t content_size)
 {
 	t_node	*tree;
 
@@ -81,11 +84,53 @@ char		*basename(char *s)
 {
 	char *basename;
 
-	basename = ft_strchr(s, '/');
+	basename = ft_strrchr(s, '/');
 	if (basename != NULL)
 		return (basename + 1);
 	else
 		return (s);
+}
+
+char	get_file_type(mode_t st_mode)
+{
+	if (S_ISDIR(st_mode))
+		return ('d');
+	else if (S_ISFIFO(st_mode))
+		return ('p');
+	else if (S_ISBLK(st_mode))
+		return ('b');
+	else if (S_ISCHR(st_mode))
+		return ('c');
+	return ('-');
+}
+
+char	*user_access(mode_t st_mode)
+{
+	char	*s;
+
+	s = ft_strnew(11);
+	s[0] = get_file_type(st_mode);
+	st_mode & S_IRUSR ? (s[1] = 'r') : (s[1] = '-');
+	st_mode & S_IWUSR ? (s[2] = 'w') : (s[2] = '-');
+	st_mode & S_IXUSR ? (s[3] = 'x') : (s[3] = '-');
+	st_mode & S_IRGRP ? (s[4] = 'r') : (s[4] = '-');
+	st_mode & S_IWGRP ? (s[5] = 'w') : (s[5] = '-');
+	st_mode & S_IXGRP ? (s[6] = 'x') : (s[6] = '-');
+	st_mode & S_IROTH ? (s[7] = 'r') : (s[7] = '-');
+	st_mode & S_IWOTH ? (s[8] = 'w') : (s[8] = '-');
+	st_mode & S_IXOTH ? (s[9] = 'x') : (s[9] = '-');
+	s[10] = ' ';
+	return (s);
+}
+
+char		*long_ls(t_node *tree)
+{
+	//char	*long_format;
+	t_file	file;
+
+	file.name = ft_strdup(tree->content);
+	lstat(tree->content, &file.st);
+	return (user_access(file.st.st_mode));
 }
 
 void		ft_treeprint(t_node *tree, int options)
@@ -95,10 +140,16 @@ void		ft_treeprint(t_node *tree, int options)
 	if (*basename(tree->content) == '.')
 	{
 		if (options & FT_ALL)
-			ft_putendl(tree->content);
+		{
+			ft_putstr(long_ls(tree));
+			ft_putendl(basename(tree->content));
+		}
 	}
 	else
-		ft_putendl(tree->content);
+	{
+		ft_putstr(long_ls(tree));
+		ft_putendl(basename(tree->content));
+	}
 	if (tree->right)
 		ft_treeprint(tree->right, options);
 }
@@ -109,20 +160,20 @@ void		ft_ls_start(char *path,
 	DIR				*dir_p;
 	struct dirent	*buf;
 	t_node			*tree;
-
-	char *nn;
+	t_file			curr_f;
 
 	dir_p = opendir(path);
 	tree = NULL;
 	while ((buf = readdir(dir_p)) != NULL)
 	{
-		nn = ft_strjoin(path, "/");
-		nn = ft_strjoin(nn, buf->d_name);
+		curr_f.name = ft_strjoin(path, "/");
+		curr_f.name = ft_stradd(curr_f.name, buf->d_name);
 		if (tree == NULL)
-			tree = ft_node_new(nn, ft_strlen(nn) + 1);
+			tree = ft_node_new(curr_f.name, ft_strlen(curr_f.name) + 1);
 		else
-			ft_node_add(tree, nn, ft_strlen(nn) + 1, f);
+			ft_node_add(tree, curr_f.name, ft_strlen(curr_f.name) + 1, f);
 	}
 	ft_treeprint(tree, options);
+	free(curr_f.name);
 	closedir(dir_p);
 }

@@ -6,7 +6,7 @@
 /*   By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 08:55:45 by oyagci            #+#    #+#             */
-/*   Updated: 2016/11/12 13:40:54 by oyagci           ###   ########.fr       */
+/*   Updated: 2016/12/02 09:37:58 by oyagci           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,6 @@ static int	ft_pow(int nb, int pow)
 		return (1);
 	else
 		return (nb * ft_pow(nb, pow - 1));
-}
-
-static char	*ft_stradd(char *dst, char const *src)
-{
-	char	*str;
-
-	if (!(str = ft_strjoin(src, dst)))
-		return (NULL);
-	free(dst);
-	return (str);
 }
 
 char		*ft_itoa(int n)

@@ -6,7 +6,7 @@
 #    By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 10:27:13 by oyagci            #+#    #+#              #
-#    Updated: 2016/11/25 11:07:57 by oyagci           ###   ########.fr        #
+#    Updated: 2016/12/02 09:34:58 by oyagci           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SOURCES_RAW	= ft_memalloc.c ft_memdel.c ft_strnew.c ft_strdel.c ft_strclr.c \
 			  ft_tolower.c ft_toupper.c ft_putnbr_fd.c ft_putnbr.c ft_itoa.c \
 			  ft_strsplit.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c \
 			  ft_lstiter.c ft_lstmap.c ft_lstmap.c ft_abs.c ft_strupper.c \
-			  ft_strlower.c
+			  ft_strlower.c ft_stradd.c
 
 SOURCES		= $(addprefix srcs/,$(SOURCES_RAW))
 
