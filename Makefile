@@ -3,44 +3,47 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oyagci <oyagci@student.42.fr>              +#+  +:+       +#+         #
+#    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/12/01 16:23:11 by oyagci            #+#    #+#              #
-#    Updated: 2016/12/02 11:51:52 by oyagci           ###   ########.fr        #
+#    Created: 2017/01/05 11:09:45 by lbopp             #+#    #+#              #
+#    Updated: 2017/01/05 12:48:15 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC				= clang
-CFLAGS			= -Wall -Wextra -Werror
+.PHONY: all, clean, fclean, re
 
-NAME			= ft_ls
+NAME = ft_ls 
+CFLAGS = -Wall -Werror -Wextra -g -I include/ 
+LIBFT = libft/
+CC = clang
+CFLAGS = -Wall -Werror -Wextra
+SRC_NAME = btree.c\
+	dir_list.c\
+	ft_lstsort_insert.c\
+	sort_function.c\
+	btreemain.c\
+	ft_ls.c\
+	main.c\
+	treatment_opt.c
+SRC_PATH = src
+SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
+OBJ = $(SRC:.c=.o)
+RM = rm -f
 
-SOURCES_RAW		= main.c ft_ls.c filters.c
-SOURCES			= $(SOURCES_RAW)
+.PHONY: all, clean, fclean, re
 
-OBJECTS_RAW		= $(SOURCES:.c=.o)
-OBJECTS			= $(OBJECTS_RAW)
-
-LIBS_FOLDER		= -L libft/
-LIBS			= -lft
-INCLUDES		= -I libft/includes/
-
-.PHONY: all clean fclean re
 all: $(NAME)
 
-$(NAME): $(OBJECTS) libft
-	@$(CC) -o $(NAME) $(SOURCES) $(CFLAGS) $(INCLUDES) $(LIBS_FOLDER) $(LIBS)
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -I includes -I libft/includes -lft -L libft
 
 %.o: %.c
-	@$(CC) -c $< -o $@ $(CFLAGS) $(INCLUDES)
+	$(CC) $(CFLAGS) -c $^ -o $@ -I includes
 
 clean:
-	@$(RM) $(OBJECTS)
+	$(RM) $(OBJ)
 
 fclean: clean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
-
-libft:
-	@make fclean -C libft/ && make -C libft/
