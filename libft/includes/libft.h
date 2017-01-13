@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 10:58:35 by lbopp             #+#    #+#             */
-/*   Updated: 2016/12/17 12:55:12 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/13 09:52:58 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "ft_getopt.h"
 
 typedef struct	s_list
 {
@@ -85,10 +86,12 @@ t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 char			*ft_strtrimchar(char const *s, char c);
 int				ft_abs(int n);
 int				ft_power(int nb, int pow);
-int				ft_nbrlen(int n);
+size_t			ft_nbrlen(int n);
 void			ft_swap(int *a, int *b);
 char			*ft_strcdup(const char *s1, char c);
 char			*ft_stradd(char *s1, char const *s2);
 void			ft_putendsp(char const *s);
+void			ft_putendch_fd(char const *s, char c, int fd);
+void			ft_putendch(char const *s, char c);
 
 #endif

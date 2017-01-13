@@ -6,25 +6,26 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/05 11:09:45 by lbopp             #+#    #+#              #
-#    Updated: 2017/01/05 12:48:15 by lbopp            ###   ########.fr        #
+#    Updated: 2017/01/12 13:12:41 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY: all, clean, fclean, re
 
 NAME = ft_ls 
-CFLAGS = -Wall -Werror -Wextra -g -I include/ 
+CFLAGS = -Wall -Werror -Wextra -g
 LIBFT = libft/
 CC = clang
-CFLAGS = -Wall -Werror -Wextra
 SRC_NAME = btree.c\
-	dir_list.c\
-	ft_lstsort_insert.c\
-	sort_function.c\
-	btreemain.c\
-	ft_ls.c\
-	main.c\
-	treatment_opt.c
+		   btree_long.c\
+		   ft_ls.c\
+		   long_format.c\
+		   long_format2.c\
+		   ft_lstsort_insert.c\
+		   main.c\
+		   opt_to_bits.c\
+		   print_tree.c\
+		   sort_function.c
 SRC_PATH = src
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(SRC:.c=.o)
@@ -38,7 +39,7 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -I includes -I libft/includes -lft -L libft
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@ -I includes
+	$(CC) $(CFLAGS) -c $^ -o $@ -I includes -I libft/includes
 
 clean:
 	$(RM) $(OBJ)

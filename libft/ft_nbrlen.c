@@ -6,15 +6,15 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 14:46:59 by lbopp             #+#    #+#             */
-/*   Updated: 2016/11/14 11:19:11 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/13 09:51:33 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_nbrlen(int n)
+size_t	ft_nbrlen(int n)
 {
-	int				size;
+	size_t			size;
 	int				div;
 	unsigned int	nb;
 

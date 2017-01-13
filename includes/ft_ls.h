@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/05 14:28:44 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/06 09:46:59 by lbopp            ###   ########.fr       */
+/*   Created: 2017/01/08 08:55:26 by lbopp             #+#    #+#             */
+/*   Updated: 2017/01/13 10:21:55 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,59 +19,72 @@
 # define LS_REV 0b01000
 # define LS_TIME 0b10000
 
-#include "../libft/includes/libft.h"
-#include "../libft/includes/ft_getopt.h"
-#include "dirent.h"
-#include <string.h>
+#include <libft.h>
+#include <dirent.h>
 #include <errno.h>
-#include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/acl.h>
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
 
-int	g_option;
-int g_multi;
-const char *g_path;
-
 typedef struct	s_len
 {
-	int	link;
-	int	user;
-	int	group;
-	int filesize;
+	size_t		max_nblink;
+	size_t		max_user;
+	size_t		max_gr;
+	size_t		max_size;
+	size_t		max_major;
+	size_t		max_minor;
 }				t_len;
-
-typedef struct	s_file
-{
-	struct dirent	*info;
-	struct stat		st;
-	struct passwd	*pass;
-	struct group	*gr;
-}				t_file;
 
 typedef struct	s_node
 {
-	t_file			*content;
-	struct s_node	*brother;
-	struct s_node	*child;
+	struct dirent	*content;
+	int				bug;
+	struct stat		st;
+	struct passwd	*pass;
+	struct group	*gr;
+	struct s_node	*next_dir;
+	struct s_node	*in_dir;
 }				t_node;
 
-int		tree_is_empty(t_node *tree);
-t_node	*create_btree(struct dirent *info, t_node *brother, t_node *child, const char *path);
-void	new_node(t_node **tree, struct dirent *content, int (*f)(void *s1, void *s2, const char *path), const char *path);
+extern int		g_optls;
+extern int		g_multifile;
+extern t_len	g_size;
+
+void	add_node(t_node **tree, struct dirent *content,
+		int (*f)(void *s1, void *s2, const char *path), const char *path);
+t_node	*before_read(t_node *tree, const char *dir_path);
+void	btree_long(struct dirent *content, const char *path, t_node **tree);
 void	clean_tree(t_node *tree);
-int		ft_ls(const char *path);
-t_node	*put_in_tree(t_node *tree, const char *path);
-void	put_opt_binary(int ret);
-int		cmprev(void *s1, void *s2, const char *path);
+void	clean_lst(t_list *lst);
 int		cmp(void *s1, void *s2, const char *path);
-int		cmp_time(void *s1, void *s2, const char *path);
-void	sort_arg(int ac, const char *av[]);
-void	new_list(t_list **lst, const char *content, size_t content_size, int (*f)(void *s1, void *s2));
-t_list	*create_lst(const char *content, size_t content_size, t_list *next);
-int		cmp_arg_time(void *s1, void *s2);
 int		cmp_arg(void *s1, void *s2);
+int		cmp_arg_time(void *s1, void *s2);
+int		cmp_time(void *s1, void *s2, const char *path);
+t_node	*create_btree(struct dirent *content, t_node *next_dir, t_node *in_dir, const char *path);
+t_list	*create_lst(const char *content, t_list *next);
+void	create_recur_tree(t_node *tree, const char *dir_path);
+t_node	*ft_ls(const char *dir_path);
+void	init_size(void);
+void	long_format(t_node *tree, const char *dir_path);
+void	new_list(t_list **lst, const char *content,
+		int (*f)(void *s1, void *s2));
+void	opt_to_bits(int opt);
+void	print_date(t_node *tree);
+void	print_gr_id(t_node *tree);
+void	print_nb_link(t_node *tree);
+void	print_multi(t_list *lst_arg);
+void	print_perm(t_node *tree, const char *dir_path);
+void	print_size(t_node *tree);
+void	print_space(int	nb_space, int len);
+void	print_tree(t_node *tree, const char *dir_path, int *i);
+void	print_total(t_node *tree);
+void	print_uid(t_node *tree);
+void	readding_dir(t_node **tree, struct dirent *lecture, const char *path);
+int		revcmp(void *s1, void *s2);
+void	sort_arg(int ac, const char *av[]);
 
 #endif
