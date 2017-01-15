@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 08:46:09 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/13 10:21:39 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/15 13:38:13 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	main(int ac, const char *av[])
 	int		ret;
 
 	init_size();
-	optstring = ft_strdup("Ralrt");
+	optstring = ft_strdup("ARalrt");
 	while ((ret = ft_getopt(ac, av, optstring)) != -1)
 	{
 		if (ret == '?')
 		{
 			write(2, "usage: ft_ls [Ralrt] [file ...]\n", 32);
-			return (0);
+			return (1);
 		}
 		opt_to_bits(ret);
 	}

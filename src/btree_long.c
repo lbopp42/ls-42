@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:01:40 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/13 11:18:52 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/15 14:07:11 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,12 @@
 void	btree_long(struct dirent *content, const char *path, t_node **tree)
 {
 	char	*newpath;
-	char	*name;
 
 	newpath = ft_strjoin(path, "/");
 	newpath = ft_stradd(newpath, content->d_name);
 	if (lstat(newpath, &(*tree)->st) == -1)
 	{
 		free(newpath);
-		ft_putendsp("ft_ls:");
-		name = ft_strjoin(content->d_name, ":");
-		ft_putendsp(name);
-		free(name);
-		ft_putendl(strerror(errno));
 		return;
 	}
 	free(newpath);

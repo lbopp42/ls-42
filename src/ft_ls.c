@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 10:39:13 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/12 14:12:16 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/15 14:07:05 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_node	*before_read(t_node *tree, const char *dir_path)
 	struct dirent	*lecture;
 	char			*path;
 	static int		i = 0;
-	char			*name;
 	int		j;
 
 	j = 0;
@@ -36,20 +35,14 @@ t_node	*before_read(t_node *tree, const char *dir_path)
 	}
 	i++;
 	if (!(dir = opendir(dir_path)))
-	{
-		ft_putstr_fd("ft_ls: ", 2);
-		name = ft_strrchr(dir_path, '/') + 1;
-		name = ft_strjoin(name, ":");
-		ft_putendch_fd(name, ' ', 2);
-		free(name);
-		ft_putendl_fd(strerror(errno), 2);
-	}
+		error_lstat(ft_strrchr(dir_path, '/') + 1);
 	else
 	{
 		while ((lecture = readdir(dir)))
 			readding_dir(&tree, lecture, dir_path);
 		closedir(dir);
 		print_tree(tree, dir_path, &j);
+		init_size();
 		if (g_optls & LS_RECUR)
 			create_recur_tree(tree, dir_path);
 	}
@@ -58,7 +51,15 @@ t_node	*before_read(t_node *tree, const char *dir_path)
 
 void	readding_dir(t_node **tree, struct dirent *lecture, const char *path)
 {
-	if (g_optls & LS_ALL)
+	if (ft_strcmp(lecture->d_name, ".") && ft_strcmp(lecture->d_name, "..")
+				&& g_optls & LS_NOPOINT)
+	{
+		if (g_optls & LS_TIME)
+			add_node(tree, lecture, cmp_time, path);
+		else
+			add_node(tree, lecture, cmp, path);
+	}
+	else if (lecture->d_name[0] == '.' && g_optls & LS_ALL)
 	{
 		if (g_optls & LS_TIME)
 			add_node(tree, lecture, cmp_time, path);

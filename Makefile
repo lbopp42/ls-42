@@ -6,7 +6,7 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/05 11:09:45 by lbopp             #+#    #+#              #
-#    Updated: 2017/01/12 13:12:41 by lbopp            ###   ########.fr        #
+#    Updated: 2017/01/15 12:37:56 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,11 @@ LIBFT = libft/
 CC = clang
 SRC_NAME = btree.c\
 		   btree_long.c\
+		   error.c\
 		   ft_ls.c\
 		   long_format.c\
 		   long_format2.c\
+		   long_format3.c\
 		   ft_lstsort_insert.c\
 		   main.c\
 		   opt_to_bits.c\

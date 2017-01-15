@@ -6,11 +6,13 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 13:34:23 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/13 10:29:08 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/15 14:07:11 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
+
+#include <stdio.h>
 
 void	print_perm(t_node *tree, const char *dir_path)
 {
@@ -29,14 +31,14 @@ void	print_perm(t_node *tree, const char *dir_path)
 	S_ISFIFO(tree->st.st_mode) ? perm[0] = 'p' : 0;
 	perm[1] = tree->st.st_mode & S_IRUSR ? 'r' : '-';
 	perm[2] = tree->st.st_mode & S_IWUSR ? 'w' : '-';
-	perm[3] = tree->st.st_mode & S_IXUSR ? 'x' : '-';
+	perm[3] = sticky_bits(tree->st, 1);
 	perm[4] = tree->st.st_mode & S_IRGRP ? 'r' : '-';
 	perm[5] = tree->st.st_mode & S_IWGRP ? 'w' : '-';
-	perm[6] = tree->st.st_mode & S_IXGRP ? 'x' : '-';
+	perm[6] = sticky_bits(tree->st, 2);
 	perm[7] = tree->st.st_mode & S_IROTH ? 'r' : '-';
 	perm[8] = tree->st.st_mode & S_IWOTH ? 'w' : '-';
-	perm[9] = tree->st.st_mode & S_IXOTH ? 'x' : '-';
-	perm[10] = ' ';
+	perm[9] = sticky_bits(tree->st, 3);
+	perm[10] = attr_acl(dir_path, tree->content->d_name);
 	ft_putendsp(perm);
 	free(perm);
 }

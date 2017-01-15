@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 15:19:59 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/13 10:51:39 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/15 14:07:07 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ void	print_size(t_node *tree)
 	write(1, " ", 1);
 }
 
-#include <stdio.h>
-
 void	print_date(t_node *tree)
 {
 	char	*date;
@@ -75,7 +73,7 @@ void	print_date(t_node *tree)
 		len = ft_strlen(ft_strchr(ctime(
 						&tree->st.st_mtimespec.tv_sec), ' ') + 1) - ft_strlen(
 					ft_strrchr(ctime(&tree->st.st_mtimespec.tv_sec), ':'));
-		if (!(date = (char*)malloc(sizeof(char) * len)))
+		if (!(date = (char*)malloc(sizeof(char) * len + 1)))
 			return ;
 		ft_bzero(date, len + 1);
 		date = ft_strncpy(date, ft_strchr(ctime(
@@ -84,8 +82,6 @@ void	print_date(t_node *tree)
 	ft_putendsp(date);
 	free(date);
 }
-
-#include <stdio.h>
 
 void	print_total(t_node *tree)
 {
@@ -100,4 +96,30 @@ void	print_total(t_node *tree)
 	ft_putendsp("total");
 	ft_putnbr(total);
 	write(1, "\n", 1);
+}
+
+char	sticky_bits(struct stat st, int mode)
+{
+	if (mode == 1)
+	{
+		if (st.st_mode & S_ISUID)
+			return ((st.st_mode & S_IXUSR) ? 's' : 'S');
+		else
+			return ((st.st_mode & S_IXUSR) ? 'x' : '-');
+	}
+	if (mode == 2)
+	{
+		if (st.st_mode & S_ISGID)
+			return ((st.st_mode & S_IXGRP) ? 's' : 'S');
+		else
+			return ((st.st_mode & S_IXGRP) ? 'x' : '-');
+	}
+	if (mode == 3)
+	{
+		if (st.st_mode & S_ISVTX)
+			return ((st.st_mode & S_IXOTH) ? 't' : 'T');
+		else
+			return ((st.st_mode & S_IXOTH) ? 'x' : '-');
+	}
+	return (0);
 }
