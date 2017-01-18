@@ -6,7 +6,7 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/05 11:09:45 by lbopp             #+#    #+#              #
-#    Updated: 2017/01/15 12:37:56 by lbopp            ###   ########.fr        #
+#    Updated: 2017/01/18 13:44:47 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC_NAME = btree.c\
 		   main.c\
 		   opt_to_bits.c\
 		   print_tree.c\
-		   sort_function.c
+		   sort_function.c\
+		   readding.c
 SRC_PATH = src
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(SRC:.c=.o)
@@ -38,15 +39,18 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -I includes -I libft/includes -lft -L libft
+	@make -C libft
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -I includes -I libft/includes -lft -L libft
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@ -I includes -I libft/includes
+	@$(CC) $(CFLAGS) -c $^ -o $@ -I includes -I libft/includes
 
 clean:
-	$(RM) $(OBJ)
+	@make -C libft clean
+	@$(RM) $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	@make -C libft fclean
+	@$(RM) $(NAME)
 
 re: fclean all

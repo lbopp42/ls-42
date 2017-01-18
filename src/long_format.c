@@ -6,13 +6,11 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 13:34:23 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/15 14:07:11 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/18 14:44:02 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
-
-#include <stdio.h>
 
 void	print_perm(t_node *tree, const char *dir_path)
 {
@@ -55,33 +53,25 @@ void	print_nb_link(t_node *tree)
 void	print_uid(t_node *tree)
 {
 	ft_putendsp(getpwuid(tree->st.st_uid)->pw_name);
-	print_space(g_size.max_user + 1, ft_strlen(getpwuid(tree->st.st_uid)->pw_name));
+	print_space(g_size.max_user + 1,
+		ft_strlen(getpwuid(tree->st.st_uid)->pw_name));
 }
 
 void	print_gr_id(t_node *tree)
 {
 	ft_putendsp(getgrgid(tree->st.st_gid)->gr_name);
-	print_space(g_size.max_gr + 1, ft_strlen(getgrgid(tree->st.st_gid)->gr_name));
+	print_space(g_size.max_gr + 1,
+		ft_strlen(getgrgid(tree->st.st_gid)->gr_name));
 }
 
 void	long_format(t_node *tree, const char *dir_path)
 {
-	char		*newpath;
-
-	newpath = ft_strdup(dir_path);
-	newpath = ft_stradd(newpath, "/");
-	newpath = ft_stradd(newpath, tree->content->d_name);
-	if (lstat(newpath, &tree->st) == -1)
-	{
-		free(newpath);
-		return;
-	}
-	free(newpath);
 	print_perm(tree, dir_path);
 	print_space(g_size.max_nblink, ft_nbrlen(tree->st.st_nlink));
 	print_nb_link(tree);
 	print_uid(tree);
-	print_gr_id(tree);
+	if (!(g_optls & LS_NOGRID))
+		print_gr_id(tree);
 	print_size(tree);
 	print_date(tree);
 }

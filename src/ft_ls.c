@@ -5,75 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/08 10:39:13 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/15 14:07:05 by lbopp            ###   ########.fr       */
+/*   Created: 2017/01/17 13:49:12 by lbopp             #+#    #+#             */
+/*   Updated: 2017/01/18 14:43:43 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-#include <stdio.h>
-
-t_node	*before_read(t_node *tree, const char *dir_path)
-{
-	DIR				*dir;
-	struct dirent	*lecture;
-	char			*path;
-	static int		i = 0;
-	int		j;
-
-	j = 0;
-	dir = 0;
-	if ((g_multifile == 1 && i != 0) || (g_optls & LS_RECUR && i != 0))
-		write(1, "\n", 1);
-	if (i != 0 || g_multifile == 1)
-	{
-		path = ft_strdup(dir_path);
-		path = ft_stradd(path, ":");
-		ft_putendl(path);
-		free(path);
-	}
-	i++;
-	if (!(dir = opendir(dir_path)))
-		error_lstat(ft_strrchr(dir_path, '/') + 1);
-	else
-	{
-		while ((lecture = readdir(dir)))
-			readding_dir(&tree, lecture, dir_path);
-		closedir(dir);
-		print_tree(tree, dir_path, &j);
-		init_size();
-		if (g_optls & LS_RECUR)
-			create_recur_tree(tree, dir_path);
-	}
-	return (tree);
-}
-
-void	readding_dir(t_node **tree, struct dirent *lecture, const char *path)
-{
-	if (ft_strcmp(lecture->d_name, ".") && ft_strcmp(lecture->d_name, "..")
-				&& g_optls & LS_NOPOINT)
-	{
-		if (g_optls & LS_TIME)
-			add_node(tree, lecture, cmp_time, path);
-		else
-			add_node(tree, lecture, cmp, path);
-	}
-	else if (lecture->d_name[0] == '.' && g_optls & LS_ALL)
-	{
-		if (g_optls & LS_TIME)
-			add_node(tree, lecture, cmp_time, path);
-		else
-			add_node(tree, lecture, cmp, path);
-	}
-	else if (lecture->d_name[0] != '.')
-	{
-		if (g_optls & LS_TIME)
-			add_node(tree, lecture, cmp_time, path);
-		else
-			add_node(tree, lecture, cmp, path);
-	}
-}
 
 void	print_multi(t_list *lst_arg)
 {
@@ -108,6 +45,5 @@ t_node	*ft_ls(const char *dir_path)
 
 	tree = NULL;
 	tree = before_read(tree, dir_path);
-	clean_tree(tree);
 	return (tree);
 }

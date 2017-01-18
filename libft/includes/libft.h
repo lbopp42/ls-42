@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 10:58:35 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/13 09:52:58 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/17 13:42:20 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ char			*ft_stradd(char *s1, char const *s2);
 void			ft_putendsp(char const *s);
 void			ft_putendch_fd(char const *s, char c, int fd);
 void			ft_putendch(char const *s, char c);
+void			ft_putendstr(char const *s1, char const *s2);
+void			ft_putendstr_fd(char const *s1, char const *s2, int fd);
 
 #endif

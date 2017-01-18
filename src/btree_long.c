@@ -6,26 +6,15 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 15:01:40 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/15 14:07:11 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/18 14:43:25 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-#include <stdio.h>
-
-void	btree_long(struct dirent *content, const char *path, t_node **tree)
+void	btree_long(t_node **tree)
 {
-	char	*newpath;
-
-	newpath = ft_strjoin(path, "/");
-	newpath = ft_stradd(newpath, content->d_name);
-	if (lstat(newpath, &(*tree)->st) == -1)
-	{
-		free(newpath);
-		return;
-	}
-	free(newpath);
+	g_size.total = g_size.total + (*tree)->st.st_blocks;
 	if (ft_nbrlen((*tree)->st.st_nlink) > g_size.max_nblink)
 		g_size.max_nblink = ft_nbrlen((*tree)->st.st_nlink);
 	if (ft_strlen(getpwuid((*tree)->st.st_uid)->pw_name) > g_size.max_user)

@@ -6,10 +6,11 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 15:29:49 by lbopp             #+#    #+#              #
-#    Updated: 2017/01/12 12:32:19 by lbopp            ###   ########.fr        #
+#    Updated: 2017/01/17 13:40:28 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+.PHONY: all, clean, fclean, re
 NAME = libft.a
 
 SRC = ft_memset.c\
@@ -80,17 +81,23 @@ SRC = ft_memset.c\
 	  ft_getopt.c\
 	  ft_putendsp.c\
 	  ft_putendch.c\
-	  ft_putendch_fd.c
+	  ft_putendch_fd.c\
+	  ft_putendstr.c\
+	  ft_putendstr_fd.c
 
 OBJ = $(SRC:.c=.o)
-
-FLAG = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
+CC = gcc
 
 all: $(NAME)
 
-$(NAME):
-	gcc $(FLAG) -c $(SRC) -I includes/
-	ar rc $(NAME) $(OBJ)
+$(NAME): $(OBJ)
+	@$(CC) $(CFLAGS) -c $(SRC) -I includes/
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $^ -o $@ -I includes
 
 clean:
 	@/bin/rm -f $(OBJ)
@@ -99,5 +106,3 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 
 re: fclean all
-
-.phony: all $(NAME) clean fclean re

@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 15:06:43 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/12 13:35:45 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/18 14:43:51 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_list	*create_lst(const char *content, t_list *next)
 	return (lst);
 }
 
-void	new_list(t_list **lst, const char *content, int (*f)(void *s1, void *s2))
+void	new_list(t_list **lst, const char *content,
+		int (*f)(void *s1, void *s2))
 {
 	t_list	*tmp;
 

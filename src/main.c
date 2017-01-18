@@ -6,19 +6,19 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/08 08:46:09 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/15 13:38:13 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/18 14:46:37 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <stdio.h>
-#include <unistd.h>
 
 int		g_multifile;
 t_len	g_size;
 
 void	init_size(void)
 {
+	g_size.total = 0;
+	g_size.max_name = 0;
 	g_size.max_nblink = 0;
 	g_size.max_user = 0;
 	g_size.max_gr = 0;
@@ -27,18 +27,18 @@ void	init_size(void)
 	g_size.max_minor = 0;
 }
 
-int	main(int ac, const char *av[])
+int		main(int ac, const char *av[])
 {
 	char	*optstring;
 	int		ret;
 
 	init_size();
-	optstring = ft_strdup("ARalrt");
+	optstring = ft_strdup("1ARSalort");
 	while ((ret = ft_getopt(ac, av, optstring)) != -1)
 	{
 		if (ret == '?')
 		{
-			write(2, "usage: ft_ls [Ralrt] [file ...]\n", 32);
+			write(2, "usage: ft_ls [1ARSalort] [file ...]\n", 36);
 			return (1);
 		}
 		opt_to_bits(ret);

@@ -6,13 +6,13 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 15:19:59 by lbopp             #+#    #+#             */
-/*   Updated: 2017/01/15 14:07:07 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/01/18 14:44:16 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	print_space(int	nb_space, int len)
+void	print_space(int nb_space, int len)
 {
 	while (len < nb_space)
 	{
@@ -44,82 +44,54 @@ void	print_size(t_node *tree)
 	write(1, " ", 1);
 }
 
+char	*get_time(t_node *tree)
+{
+	size_t	len;
+	char	*date;
+
+	len = ft_strlen(ft_strchr(ctime(
+					&tree->st.st_mtimespec.tv_sec), ' ') + 1) - ft_strlen(
+				ft_strrchr(ctime(&tree->st.st_mtimespec.tv_sec), ':'));
+	if (!(date = (char*)malloc(sizeof(char) * len + 1)))
+		return (NULL);
+	ft_bzero(date, len + 1);
+	date = ft_strncpy(date, ft_strchr(ctime(
+					&tree->st.st_mtimespec.tv_sec), ' ') + 1, len);
+	return (date);
+}
+
 void	print_date(t_node *tree)
 {
 	char	*date;
 	size_t	len;
-	char	*tmp;
 	char	*tmp2;
 
 	if (time(NULL) - tree->st.st_mtimespec.tv_sec > 15778799 ||
 			time(NULL) - tree->st.st_mtimespec.tv_sec < 0)
 	{
 		len = ft_strlen(ft_strchr(ctime(&tree->st.st_mtimespec.tv_sec),
-		' ') + 1) - ft_strlen(ft_strchr(
-			ctime(&tree->st.st_mtimespec.tv_sec), ':')) - 3;
-		if (!(date = (char*)malloc(sizeof(char) * len + 1)))
-			return ;
-		ft_bzero(date, len + 1);
-		date = ft_strncpy(date, ft_strchr(ctime(
-				&tree->st.st_mtimespec.tv_sec), ' ') + 1, len);
-		tmp = ft_strrchr(ctime(&tree->st.st_mtimespec.tv_sec), ' ');
-		tmp2 = ft_strcdup(tmp, '\n');
-		date = ft_stradd(date, " ");
-		date = ft_stradd(date, tmp2);
-		free(tmp2);
-	}
-	else
-	{
-		len = ft_strlen(ft_strchr(ctime(
-						&tree->st.st_mtimespec.tv_sec), ' ') + 1) - ft_strlen(
-					ft_strrchr(ctime(&tree->st.st_mtimespec.tv_sec), ':'));
+					' ') + 1) - ft_strlen(ft_strchr(
+						ctime(&tree->st.st_mtimespec.tv_sec), ':')) - 3;
 		if (!(date = (char*)malloc(sizeof(char) * len + 1)))
 			return ;
 		ft_bzero(date, len + 1);
 		date = ft_strncpy(date, ft_strchr(ctime(
 						&tree->st.st_mtimespec.tv_sec), ' ') + 1, len);
+		tmp2 = ft_strcdup(ft_strrchr(ctime(&tree->st.st_mtimespec.tv_sec),
+					' '), '\n');
+		date = ft_stradd(date, " ");
+		date = ft_stradd(date, tmp2);
+		free(tmp2);
 	}
+	else
+		date = get_time(tree);
 	ft_putendsp(date);
 	free(date);
 }
 
-void	print_total(t_node *tree)
+void	print_total(void)
 {
-	int	total;
-
-	total = 0;
-	while (tree != NULL)
-	{
-		total = total + tree->st.st_blocks;
-		tree = tree->next_dir;
-	}
-	ft_putendsp("total");
-	ft_putnbr(total);
-	write(1, "\n", 1);
-}
-
-char	sticky_bits(struct stat st, int mode)
-{
-	if (mode == 1)
-	{
-		if (st.st_mode & S_ISUID)
-			return ((st.st_mode & S_IXUSR) ? 's' : 'S');
-		else
-			return ((st.st_mode & S_IXUSR) ? 'x' : '-');
-	}
-	if (mode == 2)
-	{
-		if (st.st_mode & S_ISGID)
-			return ((st.st_mode & S_IXGRP) ? 's' : 'S');
-		else
-			return ((st.st_mode & S_IXGRP) ? 'x' : '-');
-	}
-	if (mode == 3)
-	{
-		if (st.st_mode & S_ISVTX)
-			return ((st.st_mode & S_IXOTH) ? 't' : 'T');
-		else
-			return ((st.st_mode & S_IXOTH) ? 'x' : '-');
-	}
-	return (0);
+	ft_putstr("\033[4m\033[1m\033[37mTotal ");
+	ft_putnbr(g_size.total);
+	ft_putendl("\033[0m");
 }
